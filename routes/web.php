@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,14 @@ Route::controller(DashboardController::class)->group(function () {
 
 
 
+Route::resource('files', FileController::class)->names([
+    'index' => 'files',
+    'store' => 'insertFiles',
+    'edit' => 'editFile',
+    'update' => 'updateFile',
+    'destroy' => 'deleteFile',
+]);
+//Route::PUT('files/{id}/update',[FileController::class,'update']);
 
 
 
@@ -33,9 +42,6 @@ Route::get('courses', function () {
     return view('courses');
 })->name('courses');
 
-Route::get('files', function () {
-    return view('files');
-})->name('files');
 
 Route::get('friends', function () {
     return view('friends');

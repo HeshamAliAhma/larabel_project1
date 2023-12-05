@@ -233,7 +233,7 @@
         <div class="file bg-white p-10 rad-10">
             <i class="fa-solid fa-download c-grey p-absolute"></i>
             <div class="icon txt-c">
-                <img class="mt-15 mb-15" src="{{asset('style/images/png.svg')}}psd" alt="" />
+                <img class="mt-15 mb-15" src="{{asset('style/images/png.svg')}}" alt="" />
             </div>
             <div class="txt-c mb-10 fs-14">my-file.psd</div>
             <p class="c-grey fs-13">Osama</p>
@@ -338,6 +338,20 @@
                 <span>2.7MB</span>
             </div>
         </div>
+            @foreach($files as $file)
+        <div class="file bg-white p-10 rad-10">
+                <i class="fa-solid fa-download c-grey p-absolute"></i>
+                <div class="icon txt-c">
+                    <img class="mt-15 mb-15" src="{{asset('style/images/eps.svg')}}" alt="" />
+                </div>
+                <div class="txt-c mb-10 fs-14">{{$file->title}}</div>
+                <p class="c-grey fs-13">{{$file->body}}</p>
+                <div class="info between-flex mt-10 pt-10 fs-13 c-grey">
+                    <span><a href="{{route('editFile',$file->id)}}">edit</a></span>
+                    <span><a href="{{route('deleteFile',$file->id)}}">delete</a></span>
+                </div>
+        </div>
+            @endforeach
     </div>
 </div>
 

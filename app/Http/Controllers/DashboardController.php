@@ -10,7 +10,7 @@ class DashboardController extends Controller
     public function index()
     {
         $tables = DB::table('tables')->get();
-        return view('dashboard',compact('tables'));
+        return view('dashboard/index',compact('tables'));
     }
 
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
