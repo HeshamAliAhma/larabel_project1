@@ -348,7 +348,11 @@
                 <p class="c-grey fs-13">{{$file->body}}</p>
                 <div class="info between-flex mt-10 pt-10 fs-13 c-grey">
                     <span><a href="{{route('editFile',$file->id)}}">edit</a></span>
-                    <span><a href="{{route('deleteFile',$file->id)}}">delete</a></span>
+                    <form method="post" action="{{route('deleteFile',$file->id)}}">
+                        @csrf
+                        @method('delete')
+                        <button type="submit">Delete</button>
+                    </form>
                 </div>
         </div>
             @endforeach

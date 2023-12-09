@@ -29,8 +29,11 @@ Route::resource('files', FileController::class)->names([
     'edit' => 'editFile',
     'update' => 'updateFile',
     'destroy' => 'deleteFile',
+    'show' => 'showDeletes',
+
 ]);
-//Route::PUT('files/{id}/update',[FileController::class,'update']);
+
+Route::post('files/restore/{id}',[FileController::class , 'restore'])->name('restoreFile');
 
 
 
@@ -63,3 +66,13 @@ Route::get('settings', function () {
     return view('settings');
 })->name('settings');
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

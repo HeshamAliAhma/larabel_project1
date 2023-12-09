@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFileRequest;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\RedirectResponse;
 use App\Models\File;
 use Illuminate\Http\Request;
 
@@ -21,8 +24,16 @@ class FileController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreFileRequest $request):RedirectResponse
     {
+
+//        $validation = $request->validate([
+//           'title' => 'required',
+//            'body' => 'required',
+//        ]);
+
+        $validated = $request->validated();
+
         // new Post using save()
             $file = new File();
             $file->title = $request->title;
@@ -40,10 +51,12 @@ class FileController extends Controller
     }
 
 
-    public function show(File $file)
+    public function show()
     {
-        //
+        $files = File::onlyTrashed()->get();
+        return view('files.softDelete',compact('files'));
     }
+
 
     public function edit($id)
     {
@@ -69,8 +82,18 @@ class FileController extends Controller
         return redirect()->route('files');
     }
 
-    public function destroy(File $file)
+    public function destroy($id)
     {
-        //
+//        File::findorfail($id)->delete();
+        File::destroy($id);
+        return redirect()->route('files');
+    }
+    public function restore($id)
+    {
+        File::withTrashed()->find($id)->restore();
+
+        return redirect()->route('files');
     }
 }
+
+
